@@ -78,8 +78,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20171108
     修改描述：v14.8.5 卡券MemberCard_CustomField_NameType枚举添加FIELD_NAME_TYPE_UNKNOW类型
 
+    修改标识：Senparc - 20170225
+    修改描述：v14.10.3 增加MessageHandler的file类型处理
+
+    修改标识：Senparc - 20180826
+    修改描述：v15.3.0 分离微信支付到 Senparc.Weixin.TenPay.dll，将 RedPack_Scene、TenPayV3Type 枚举迁移过去
+
 ----------------------------------------------------------------*/
 
+using System;
 using System.ComponentModel;
 
 namespace Senparc.Weixin.MP
@@ -97,7 +104,8 @@ namespace Senparc.Weixin.MP
         Link, //连接信息
         ShortVideo,//小视频
         Event, //事件推送
-        Unknown,//未知类型
+        File,//文件类型
+        Unknown = -1,//未知类型
     }
 
 
@@ -449,16 +457,6 @@ namespace Senparc.Weixin.MP
     //    涉嫌其他 = 21000
     //}
 
-    /// <summary>
-    /// 支付类型
-    /// </summary>
-    public enum TenPayV3Type
-    {
-        JSAPI,
-        NATIVE,
-        APP,
-        MWEB
-    }
 
     public enum GroupMessageType
     {
@@ -975,9 +973,29 @@ namespace Senparc.Weixin.MP
         QR_STR_SCENE
     }
 
+
+    /// <summary>
+    /// 支付类型
+    /// </summary>
+    
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
+    public enum TenPayV3Type
+    {
+        /// <summary>
+        /// 公众号JS-API支付和小程序支付
+        /// </summary>
+        JSAPI,
+        NATIVE,
+        APP,
+        MWEB
+    }
+
+    #region 过期
+
     /// <summary>
     /// 红包的场景id（scene_id），最中输出为字符串
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public enum RedPack_Scene
     {
         /// <summary>
@@ -1013,4 +1031,6 @@ namespace Senparc.Weixin.MP
         /// </summary>
         PRODUCT_8
     }
+
+    #endregion
 }
